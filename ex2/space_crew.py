@@ -46,7 +46,9 @@ class SpaceMission(BaseModel):
         if self.duration_days > 365:
             experienced = sum(1 for c in self.crew if c.years_experience >= 5)
             if experienced / len(self.crew) < 0.5:
-                raise ValueError(...)
+                raise ValueError(
+                    'Long missions require at least 50% experienced crew'
+                )
         if not all(c.is_active is True for c in self.crew):
             raise ValueError(
                 'All crew members must be active'
